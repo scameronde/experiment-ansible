@@ -1,0 +1,8 @@
+---
+- name: Install Oracle Java 8
+  aur:
+          name: jdk
+          dir: ~/
+          user: '{{ansible_user_id}}'
+  become: true
+

@@ -1,0 +1,8 @@
+---
+- name: Install IntelliJ Community Edition
+  pacman:
+          name: intellij-idea-community-edition
+          state: present
+          update_cache: yes
+  become: true
+

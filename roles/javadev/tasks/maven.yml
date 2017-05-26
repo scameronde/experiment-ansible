@@ -1,0 +1,8 @@
+---
+- name: Install Maven
+  pacman:
+          name: maven
+          state: present
+          update_cache: yes
+  become: true
+
