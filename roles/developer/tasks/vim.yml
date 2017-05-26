@@ -1,0 +1,15 @@
+---
+- name: Install Vim
+  pacman:
+          name: vim
+          state: present
+          update_cache: yes
+  become: true
+
+
+- name: Copy .vimrc
+  copy:
+          src: .vimrc
+          dest: ~/.vimrc
+          mode: "u=rw,g=rw,o="
+
