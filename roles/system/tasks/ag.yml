@@ -1,0 +1,8 @@
+---
+- name: Install ag
+  pacman:
+          name: the_silver_searcher
+          state: present
+          update_cache: yes
+  become: true
+
