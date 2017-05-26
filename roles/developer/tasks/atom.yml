@@ -1,0 +1,8 @@
+---
+- name: Install Atom
+  pacman:
+          name: atom
+          state: present
+          update_cache: yes
+  become: true
+

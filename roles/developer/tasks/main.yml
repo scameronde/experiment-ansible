@@ -1,0 +1,5 @@
+---
+- include: git.yml
+- include: tig.yml
+- include: atom.yml
+

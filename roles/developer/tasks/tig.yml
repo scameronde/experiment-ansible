@@ -1,0 +1,8 @@
+---
+- name: Install Tig
+  pacman:
+          name: tig
+          state: present
+          update_cache: yes
+  become: true
+

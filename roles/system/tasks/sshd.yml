@@ -1,0 +1,7 @@
+---
+- name: Setup sshd
+  service: 
+    name: sshd
+    state: started
+  become: true
+
