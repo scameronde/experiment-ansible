@@ -1,0 +1,24 @@
+---
+- name: Install zsh
+  pacman:
+          name: zsh
+          state: present
+          update_cache: yes
+  become: true
+
+- name: Set as default shell
+  command: chsh -s '/bin/zsh' '{{ansible_user_id}}'
+  become: true
+
+- name: Install oh-my-zsh
+  git:
+    repo: 'https://github.com/robbyrussell/oh-my-zsh'
+    dest: ~/.oh-my-zsh
+
+- name: Copy my dot file
+  copy:
+          src: .zshrc
+          dest: ~/.zshrc
+          mode: "u=rw,g=rw,o="
+
+
