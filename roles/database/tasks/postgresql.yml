@@ -1,8 +1,9 @@
 ---
-- name: Install Oracle Java 8
-  yaourt:
-      name: jdk
+- name: Install postgresql
+  pacman:
+      name: postgresql
       state: present
       update_cache: yes
   become: true
+    
 

@@ -1,8 +1,9 @@
 ---
-- name: Install Oracle Java 8
+- name: Install pgadmin4
   yaourt:
-      name: jdk
+      name: pgadmin4
       state: present
       update_cache: yes
   become: true
+    
 

@@ -1,4 +1,5 @@
 ---
+- include: yaourt.yml
 - include: sshd.yml
 - include: ag.yml
 

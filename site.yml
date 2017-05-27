@@ -3,5 +3,6 @@
 - include: system.yml
 - include: developer.yml
 - include: javadev.yml
+- include: database.yml
   #- include: elmdev.yml
 

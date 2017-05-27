@@ -1,7 +1,7 @@
 ---
-- name: Install Oracle Java 8
-  yaourt:
-      name: jdk
+- name: Install yaourt
+  pacman:
+      name: yaourt
       state: present
       update_cache: yes
   become: true
