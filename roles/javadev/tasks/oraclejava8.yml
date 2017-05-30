@@ -1,4 +1,18 @@
 ---
+- name: Deinstall Open JDK 8
+  pacman:
+    name: jre8-openjdk
+    state: absent
+    update_cache: yes
+  become: true
+
+- name: Deinstall Open JDK 8 Headless
+  pacman:
+    name: jre8-openjdk-headless
+    state: absent
+    update_cache: yes
+  become: true
+
 - name: Install Oracle Java 8
   yaourt:
       name: jdk
