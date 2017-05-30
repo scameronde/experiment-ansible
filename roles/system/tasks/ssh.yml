@@ -1,0 +1,14 @@
+---
+
+- name: Copy my ssh key
+  copy:
+          src: id_rsa
+          dest: ~/.ssh/id_rsa
+          mode: "u=rw,g=,o="
+
+- name: Copy my ssh pub key
+  copy:
+          src: id_rsa.pub
+          dest: ~/.ssh/id_rsa.pub
+          mode: "u=rw,g=r,o=r"
+

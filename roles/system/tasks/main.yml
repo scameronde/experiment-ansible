@@ -1,6 +1,7 @@
 ---
 - include: yaourt.yml
 - include: sshd.yml
+- include: ssh.yml
 - include: ag.yml
 - include: zsh.yml
 - include: vim.yml
