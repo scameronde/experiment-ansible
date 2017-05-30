@@ -11,9 +11,16 @@
   command: 'echo "postgres" | passwd -l postgres'
   become: true
 
+- name: Check if Postgres has already been initialized
+  stat:
+    path: /var/lib/postgres/data/postgresql.conf
+  register: dbinit_result
+  become: true
+
 
 - name: Initialize DB Cluster
   command: 'su -l postgres -c "initdb -D /var/lib/postgres/data"'
+  when: dbinit_result.stat.exists == False
   become: true
 
 
