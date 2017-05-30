@@ -5,5 +5,24 @@
       state: present
       update_cache: yes
   become: true
+
+
+- name: Activate postgres user
+  command: 'echo "postgres" | passwd -l postgres'
+  become: true
+
+
+- name: Initialize DB Cluster
+  command: 'su -l postgres -c "initdb -D /var/lib/postgres/data"'
+  become: true
+
+
+- name: Setup postgresql daemon
+  service: 
+    name: postgresql
+    state: started
+  become: true
+
+
     
 
