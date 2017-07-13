@@ -1,0 +1,8 @@
+---
+- name: Install SourceCodePro
+  yaourt:
+          name: nerd-fonts-source-code-pro
+          state: present
+          update_cache: yes
+  become: false
+
