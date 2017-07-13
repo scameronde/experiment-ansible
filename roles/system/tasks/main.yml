@@ -6,5 +6,6 @@
 - include: zsh.yml
 - include: vim.yml
 - include: fonts.yml
+- include: gnomeextensions.yml
 
 
