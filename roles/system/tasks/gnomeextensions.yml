@@ -4,5 +4,5 @@
           name: chrome-gnome-shell
           state: present
           update_cache: yes
-  become: false
+  become: true
 
