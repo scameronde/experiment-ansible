@@ -1,0 +1,8 @@
+---
+- name: Install Terminator
+  pacman:
+          name: terminator
+          state: present
+          update_cache: yes
+  become: true
+
