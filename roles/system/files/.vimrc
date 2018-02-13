@@ -33,8 +33,9 @@ highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Re
 
 " style and behaviour of file explorer
 let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 3
+let g:netrw_liststyle = 1
+let g:netrw_browse_split = 0
+let g:netrw_alto = 1
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 
