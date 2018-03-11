@@ -1,0 +1,11 @@
+conky.config = {
+  out_to_x = no,
+  out_to_console = yes,
+  update_interval = 1.0,
+  total_run_times = 0,
+  use_spacer = 'none',
+};
+
+conky.text = 
+[[ ${time %c}  |  Up: ${uptime_short}  |  Batt: ${battery_short BAT1}  |  IP: ${addr ens33 } |  RAM: $memperc%  |  CPU: ${cpu}%  |  Up/Down: ${upspeed ens33}/ ${downspeed ens33} ]];
+
