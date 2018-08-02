@@ -2,7 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config 
+ , pkgs
+ , ... }:
 
 {
   imports =
@@ -37,8 +39,18 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget vim git tig chromium firefox tmux keepassx2 maven jetbrains.idea-community eclipses.eclipse-platform openjdk vscode dropbox chrome-gnome-shell
+    wget vim git tig chromium firefox tmux keepassx2 maven jetbrains.idea-community eclipses.eclipse-platform openjdk vscode chrome-gnome-shell dropbox-cli zsh oh-my-zsh
   ];
+
+  fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+    fonts = with pkgs; [
+      corefonts
+      dejavu_fonts
+      powerline-fonts
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -86,10 +98,12 @@
   #   isNormalUser = true;
   #   uid = 1000;
   # };
+  programs.zsh.enable = true;
   users.users.scameronde = {
     isNormalUser = true;
     home = "/home/scameronde";
     extraGroups = [ "wheel" "networkmanager" "users" ];
+    shell = pkgs.zsh;
   };
 
   # This value determines the NixOS release with which your system is to be
