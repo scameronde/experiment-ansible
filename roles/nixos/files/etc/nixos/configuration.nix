@@ -39,7 +39,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget vim git tig chromium firefox tmux keepassx2 maven jetbrains.idea-community eclipses.eclipse-platform openjdk vscode chrome-gnome-shell dropbox-cli zsh oh-my-zsh
+    wget vim git tig chromium firefox tmux keepassx2 maven jetbrains.idea-community eclipses.eclipse-platform openjdk vscode chrome-gnome-shell dropbox-cli zsh oh-my-zsh libreoffice-fresh pandoc groff
   ];
 
   fonts = {
