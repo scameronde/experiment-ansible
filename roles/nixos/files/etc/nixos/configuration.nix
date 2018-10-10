@@ -12,39 +12,92 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  system.stateVersion = "18.03";
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  nixpkgs.config.allowUnfree = true;
 
-  # Select internationalisation properties.
+
+  # Boot loader
+  boot = {
+    loader = {
+      grub = {
+        enable = true;
+        version = 2;
+        device = "/dev/sda";
+      };
+    };
+  };
+
+
+  # Networking settings
+  networking = {
+    hostName = "nixos";
+
+    enableIPv6 = false;
+
+    firewall = {
+      enable = false;
+    };
+
+    networkmanager = {
+      enable = true;
+    };
+
+    wireless = {
+      enable = false;
+    };
+  };
+
+
+  # Time settings
+  time = {
+    timeZone = "Europe/Berlin";
+  };
+
+
+  # Console keyboard and font
   i18n = {
-    consoleFont = "Lat2-Terminus16";
+    consoleFont   = "Lat2-Terminus16";
     consoleKeyMap = "de";
     defaultLocale = "de_DE.UTF-8";
   };
 
-  # Set your time zone.
-  time.timeZone = "Europe/Berlin";
 
-  nixpkgs.config.allowUnfree = true;
+  # Additional hardware
+  hardware = {
+    bluetooth = {
+      enable = false;
+    };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    wget vim git tig chromium firefox tmux keepassx2 maven jetbrains.idea-community eclipses.eclipse-platform openjdk8 vscode chrome-gnome-shell dropbox-cli zsh oh-my-zsh libreoffice-fresh pandoc groff
-  ];
+    pulseaudio = {
+      enable = true;
+    };
 
+    opengl = {
+      enable = true;
+    };
+  };
+
+
+  # Sound settings
+  sound = {
+    enable = true;
+    enableOSSEmulation = true;
+  };
+
+
+  # Energy settings
+  powerManagement = {
+    enable = true;
+  };
+
+
+  # Fonts for graphical UI
   fonts = {
+    enableDefaultFonts = true;
     enableFontDir = true;
     enableGhostscriptFonts = true;
+
     fonts = with pkgs; [
       corefonts
       dejavu_fonts
@@ -52,67 +105,111 @@
     ];
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.bash.enableCompletion = true;
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
-  # List services that you want to enable:
+  # System services
+  services = {
+    openssh = {
+      enable = true;
+    };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+    printing = {
+      enable = false;
+    };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+    xserver = {
+      enable = true;
+      exportConfiguration = true;
+      layout = "de";
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+      displayManager = {
+        slim = {
+          enable = true;
+          autoLogin = true;
+          defaultUser = "scameronde";
+        };
+      };
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+      desktopManager = {
+        gnome3 = {
+          enable = true;
+        };
+      };
+    };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "de";
-  # services.xserver.xkbOptions = "eurosign:e";
+    gnome3 = {
+      chrome-gnome-shell = {
+        enable = true;
+      };
 
-  # Enable touchpad support.
-  # services.xserver.libinput.enable = true;
+      gpaste = {
+        enable = true;
+      };
 
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.displayManager.slim.enable = true;
-  services.xserver.displayManager.slim.defaultUser = "scameronde";
-  services.xserver.displayManager.slim.autoLogin = true;
-  services.xserver.desktopManager.gnome3.enable = true;
-  services.gnome3.chrome-gnome-shell.enable = true;
+      sushi = {
+        enable = true;
+      };
 
-  # VMware Guest Tools
-  services.vmwareGuest.enable = true;
+      gnome-documents = {
+        enable = true;
+      };
+    };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.extraUsers.guest = {
-  #   isNormalUser = true;
-  #   uid = 1000;
-  # };
-  programs.zsh.enable = true;
-  users.users.scameronde = {
-    isNormalUser = true;
-    home = "/home/scameronde";
-    extraGroups = [ "wheel" "networkmanager" "users" ];
-    shell = pkgs.zsh;
+    vmwareGuest = {
+      enable = true;
+    };
   };
 
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system.stateVersion = "18.03"; # Did you read the comment?
+ 
+  # Environment for system (inherited by users)
+  environment = {
+    systemPackages = with pkgs; [
+      wget 
+      vim 
+      git 
+      tig 
+      chromium 
+      chrome-gnome-shell
+      firefox 
+      tmux 
+      keepassx2 
+      maven 
+      jetbrains.idea-community 
+      eclipses.eclipse-platform 
+      openjdk8 
+      vscode 
+      dropbox-cli 
+      zsh 
+      oh-my-zsh 
+      libreoffice-fresh 
+      pandoc 
+      groff 
+      iptables
+    ];
+  };
+
+
+  # Configuration defaults for programs
+  programs = {
+    bash = {
+      enableCompletion = true;
+    };
+
+    zsh = {
+      enable = true;
+    };
+  };
+
+
+  # Users
+  users = {
+    users = {
+      scameronde = {
+        isNormalUser = true;
+        home = "/home/scameronde";
+        extraGroups = [ "wheel" "networkmanager" "users" ];
+        shell = pkgs.zsh;
+      };
+    };
+  };
 
 }
