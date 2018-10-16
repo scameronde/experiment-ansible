@@ -119,6 +119,10 @@
       enable = true;
     };
 
+    squid = {
+      enable = false;
+    };
+
     printing = {
       enable = false;
     };
@@ -170,7 +174,7 @@
   # Configure virtualization / docker
   virtualisation = {
     docker = { 
-      enable = true;
+      enable = false;
     };
   };
  
@@ -200,6 +204,7 @@
       groff 
       iptables
       bridge-utils
+      bind
     ];
   };
 
@@ -213,6 +218,11 @@
     zsh = {
       enable = true;
     };
+
+    wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
+    };
   };
 
 
@@ -222,7 +232,7 @@
       scameronde = {
         isNormalUser = true;
         home = "/home/scameronde";
-        extraGroups = [ "wheel" "networkmanager" "users" "audio" "docker" ];
+        extraGroups = [ "wheel" "networkmanager" "users" "audio" "docker" "wireshark" ];
         shell = pkgs.zsh;
       };
     };
