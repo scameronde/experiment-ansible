@@ -12,9 +12,16 @@
       ./hardware-configuration.nix
     ];
 
-  system.stateVersion = "18.03";
+  system = {
+    stateVersion = "18.03";
+    copySystemConfiguration = true;
+  };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+  };
 
 
   # Boot loader
@@ -159,6 +166,14 @@
     };
   };
 
+
+  # Configure virtualization / docker
+  virtualisation = {
+    docker = { 
+      enable = true;
+    };
+  };
+ 
  
   # Environment for system (inherited by users)
   environment = {
@@ -184,6 +199,7 @@
       pandoc 
       groff 
       iptables
+      bridge-utils
     ];
   };
 
@@ -206,7 +222,7 @@
       scameronde = {
         isNormalUser = true;
         home = "/home/scameronde";
-        extraGroups = [ "wheel" "networkmanager" "users" ];
+        extraGroups = [ "wheel" "networkmanager" "users" "audio" "docker" ];
         shell = pkgs.zsh;
       };
     };
