@@ -189,6 +189,8 @@
       chromium 
       chrome-gnome-shell
       firefox 
+      davmail
+      thunderbird
       tmux 
       keepassx2 
       maven 
@@ -205,6 +207,8 @@
       iptables
       bridge-utils
       bind
+      texlive.combined.scheme-full
+      texstudio
     ];
   };
 
