@@ -189,7 +189,6 @@
       chromium 
       chrome-gnome-shell
       firefox 
-      davmail
       thunderbird
       tmux 
       keepassx2 
@@ -209,6 +208,8 @@
       bind
       texlive.combined.scheme-full
       texstudio
+      unzip
+      ag
     ];
   };
 
