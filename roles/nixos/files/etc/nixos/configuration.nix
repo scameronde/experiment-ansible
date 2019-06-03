@@ -13,7 +13,7 @@
     ];
 
   system = {
-    stateVersion = "18.03";
+    stateVersion = "19.03";
     copySystemConfiguration = true;
   };
 
@@ -133,10 +133,8 @@
       layout = "de";
 
       displayManager = {
-        slim = {
+        gdm = {
           enable = true;
-          autoLogin = true;
-          defaultUser = "scameronde";
         };
       };
 
@@ -164,10 +162,6 @@
         enable = true;
       };
     };
-
-    vmwareGuest = {
-      enable = true;
-    };
   };
 
 
@@ -175,6 +169,10 @@
   virtualisation = {
     docker = { 
       enable = false;
+    };
+
+    virtualbox.guest = {
+      enable = true;
     };
   };
  
