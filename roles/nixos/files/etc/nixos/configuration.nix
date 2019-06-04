@@ -6,6 +6,9 @@
  , pkgs
  , ... }:
 
+let
+  unstableTarball = fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -19,6 +22,11 @@
 
   nixpkgs = {
     config = {
+      packageOverrides = pkgs: {
+        unstable = import unstableTarball {
+          config = config.nixpkgs.config;
+        };
+      };
       allowUnfree = true;
     };
   };
@@ -180,6 +188,7 @@
   # Environment for system (inherited by users)
   environment = {
     systemPackages = with pkgs; [
+      unstable.dropbox
       wget 
       vim 
       git 
@@ -195,7 +204,6 @@
       eclipses.eclipse-platform 
       openjdk8 
       vscode 
-      dropbox-cli 
       zsh 
       oh-my-zsh 
       libreoffice-fresh 
@@ -209,6 +217,28 @@
       unzip
       ag
     ];
+  };
+
+
+  # Systemd entries
+  systemd.user.services = {
+    dropbox = {
+      description = "Dropbox";
+      wantedBy = [ "graphical-session.target" ];
+      environment = {
+        QT_PLUGIN_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtPluginPrefix;
+        QML2_IMPORT_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtQmlPrefix;
+      };
+      serviceConfig = {
+        ExecStart = "${pkgs.dropbox.out}/bin/dropbox";
+        ExecReload = "${pkgs.coreutils.out}/bin/kill -HUP $MAINPID";
+        KillMode = "control-group"; # upstream recommends process
+        Restart = "on-failure";
+        PrivateTmp = true;
+        ProtectSystem = "full";
+        Nice = 10;
+      };
+    };
   };
 
 
